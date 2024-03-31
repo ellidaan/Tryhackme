@@ -1,74 +1,41 @@
-# Simple CTF
+# **Bounty Hacker**
 
-liens du CTF : https://tryhackme.com/r/room/easyctf
+lien du CTF: https://tryhackme.com/r/room/cowboyhacker
 
-Commençons d’abord par faire un scan avec nmap, nous pouvons voir le port 80 ouvert donc un site web.
+Commençons par faire un scan avec nmap. Nous pouvons voir qu’un site tourne sur le port 80 et que le service ftp tourne sur le port 22 et qu’on peut se connecter en tant qu'Anonymous.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled.png)
 
-Suite à la découverte d’un site sur le port 80, nous faisons une enum 
-pour voir s'il n'y a pas d’autres pages cachées, page trouvée:  `/simple`
+Nous rentrons l’URL du site web, nous ne trouverons rien de particulier sur ce site :
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled2.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled2.png)
 
-La page `/simple` que nous voyons ci-dessous est faite par un `CMS Made Simple` version `2.2.8`.
+Nous nous connectons en ftp en tant que Anonymous, nous remarquons deux fichiers que nous exporterons sur notre PC local avec `get <nomDuFichier>`.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled3.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled3.png)
 
-Nous pouvons voir qu'un exploit a été trouvé. Cet exploit est un peu cassé, il manque des parenthèses au niveau des `print`. Il faut donc les mettre afin que l'exploit puisse fonctionner.
+Voici ce qu’il y a dans task.txt : le nom de l'utilisateur est `lin`.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled4.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled4.png)
 
-[hint] You can use /usr/share/seclists/Passwords/Common-Credentials/best110.txt to crack the pass
+Voici ce qu’il y a dans locks.txt qui est une liste de mots de passe :
 
-ous récupérons l’exploit grâce à `searchsploit -m <num exploit>`. Pour lancer le script :
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled5.png)
 
-`python3 [46635.py](http://46635.py/) -u http://10.10.94.176/simple --crack -w /usr/share/seclists/Passwords/Common-Credentials/best110.txt`
+Nous pouvons donc essayer de nous connecter en SSH. Pour cela, il faut trouver le mot de passe à l’aide d’hydra.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled5.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled6.png)
 
-Maintenant que j’ai un nom d'utilisateur, je cherche une autre page afin de me connecter ou de craquer un mot de passe. Je trouve la page `/admin`.
+Nous nous connectons donc en SSH :
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled6.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled7.png)
 
-Voici la page admin. Avec le nom d’utilisateur `mitch` trouvé tout à l’heure, je peux donc essayer de craquer le mot de passe.
+C’est ici que nous commençons l’escalade des privilèges. Nous remarquons que `tar` peut être utilisé à l’aide de `sudo`.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled7.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled8.png)
 
-Pour ce faire, j’utilise Burp Suite afin de craquer le mot de passe. Mot de passe trouvé : `secret`
+On va donc se reiseigne si il existe pas une faille sur GTFOBins.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled8.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled9.png)
 
-Je rentre donc le nom d'utilisateur `mitch` et le mot de passe `secret` et 
-
-j’accède donc à une page :
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled9.png)
-
-Comme nous l’avons vu lors du scan nmap, le service SSH tourne sur le port 2222. On s’y connecte :
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled10.png)
-
-On trouve un fichier `user.txt` ansi qu’un autre user.
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled11.png)
-
-Ici, nous commençons l’escalade des privilèges : `sudo -l`. Nous pouvons voir que `mitch` peut utiliser `vim` avec `sudo`, on a donc la possibilité de modifier des fichiers.
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled12.png)
-
-Nous pouvons accéder à /etc/passwd avec sudo :
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled13.png)
-
-Il suffit de créé un mot de passe avec cette commande sur ton pc local :  `openssl passwd test` .
-
-On remplace le X par le mot de passe généré : 
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled14.png)
-
-Enfin on se connecte avec le user root :
-
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled15.png)
-
-
+Grâce à cette faille, nous pouvons augmenter les privilèges et être root sur la machine :
