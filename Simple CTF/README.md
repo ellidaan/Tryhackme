@@ -55,20 +55,20 @@ On trouve un fichier `user.txt` ansi qu’un autre user.
 
 Ici, nous commençons l’escalade des privilèges : `sudo -l`. Nous pouvons voir que `mitch` peut utiliser `vim` avec `sudo`, on a donc la possibilité de modifier des fichiers.
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled13.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled12.png)
 
 Nous pouvons accéder à /etc/passwd avec sudo :
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled14.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled13.png)
 
 Il suffit de créé un mot de passe avec cette commande sur ton pc local :  `openssl passwd test` .
 
 On remplace le X par le mot de passe généré : 
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled15.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled14.png)
 
 Enfin on se connecte avec le user root :
 
-![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled16.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled15.png)
 
 est de sécurité des applications web en identifiant les vulnérabilités telles que les injections SQL, les XSS (Cross-Site Scripting) et les CSRF (Cross-Site Request Forgery).
