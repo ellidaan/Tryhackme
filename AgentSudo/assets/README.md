@@ -1,6 +1,6 @@
 Commençons par faire un nmap. On peut voir les ports 21, 22 et 80 ouverts.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/7b517c17-c61b-4a1d-89e6-1fb0304f4aed/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled.png)
 
 Sur le site web, d’après ce que je comprends, il faut changer dans l’en-tête de la requête le user-agent, comme indiqué dans l’aide où il faut mettre C.
 
