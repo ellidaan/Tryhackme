@@ -71,4 +71,4 @@ Enfin on se connecte avec le user root :
 
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled15.png)
 
-est de sécurité des applications web en identifiant les vulnérabilités telles que les injections SQL, les XSS (Cross-Site Scripting) et les CSRF (Cross-Site Request Forgery).
+
