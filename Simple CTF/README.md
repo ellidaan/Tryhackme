@@ -9,15 +9,15 @@ Commençons d’abord par faire un scan avec nmap, nous pouvons voir le port 80 
 Suite à la découverte d’un site sur le port 80, nous faisons une enum 
 pour voir s'il n'y a pas d’autres pages cachées, page trouvée:  `/simple`
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/0bdf99c7-2a2c-4b9e-bc4b-cbba913c0b26/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled2.png)
 
 La page `/simple` que nous voyons ci-dessous est faite par un `CMS Made Simple` version `2.2.8`.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/bea64c3b-e4f0-472a-845a-617b99b14dc7/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled3.png)
 
 Nous pouvons voir qu'un exploit a été trouvé. Cet exploit est un peu cassé, il manque des parenthèses au niveau des `print`. Il faut donc les mettre afin que l'exploit puisse fonctionner.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/4b4b4842-f387-4305-93b5-268b9f988fcf/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled4.png)
 
 [hint] You can use /usr/share/seclists/Passwords/Common-Credentials/best110.txt to crack the pass
 
@@ -25,50 +25,50 @@ ous récupérons l’exploit grâce à `searchsploit -m <num exploit>`. Pour lan
 
 `python3 [46635.py](http://46635.py/) -u http://10.10.94.176/simple --crack -w /usr/share/seclists/Passwords/Common-Credentials/best110.txt`
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/9c887edd-410e-4bb2-9bec-94bfb9fa20b1/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled5.png)
 
 Maintenant que j’ai un nom d'utilisateur, je cherche une autre page afin de me connecter ou de craquer un mot de passe. Je trouve la page `/admin`.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/a565985c-b7e6-4e94-bd74-99003c5c5d0b/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled6.png)
 
 Voici la page admin. Avec le nom d’utilisateur `mitch` trouvé tout à l’heure, je peux donc essayer de craquer le mot de passe.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/3ad128e8-a183-4386-b1d1-b75aae4dd075/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled7.png)
 
 Pour ce faire, j’utilise Burp Suite afin de craquer le mot de passe. Mot de passe trouvé : `secret`
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/617f6b78-921c-4e00-8e39-e50357d99a2d/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled8.png)
 
 Je rentre donc le nom d'utilisateur `mitch` et le mot de passe `secret` et 
 
 j’accède donc à une page :
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/81f89abe-8738-4b48-80b8-9c7bd20951d6/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled9.png)
 
 Comme nous l’avons vu lors du scan nmap, le service SSH tourne sur le port 2222. On s’y connecte :
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/c0591fac-c755-409d-812c-5ecc54e9eed9/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled10.png)
 
 On trouve un fichier `user.txt` ansi qu’un autre user.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/b0d07042-621b-41f3-bbd7-84484cb0a9eb/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled11.png)
 
 Ici, nous commençons l’escalade des privilèges : `sudo -l`. Nous pouvons voir que `mitch` peut utiliser `vim` avec `sudo`, on a donc la possibilité de modifier des fichiers.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/bcce3988-3419-4028-b0d4-4158756b51f8/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled13.png)
 
 Nous pouvons accéder à /etc/passwd avec sudo :
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/2a879ae0-a425-4897-85b5-5ddc19ac89d8/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled14.png)
 
 Il suffit de créé un mot de passe avec cette commande sur ton pc local :  `openssl passwd test` .
 
 On remplace le X par le mot de passe généré : 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/fe89e17b-9e46-41fa-86ea-6dcc8d6c2026/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled15.png)
 
 Enfin on se connecte avec le user root :
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/e5298b36-03a7-4620-928f-691f7282b41c/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled16.png)
 
 est de sécurité des applications web en identifiant les vulnérabilités telles que les injections SQL, les XSS (Cross-Site Scripting) et les CSRF (Cross-Site Request Forgery).
