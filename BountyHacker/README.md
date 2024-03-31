@@ -39,3 +39,5 @@ On va donc se reiseigne si il existe pas une faille sur GTFOBins.
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled9.png)
 
 Grâce à cette faille, nous pouvons augmenter les privilèges et être root sur la machine :
+
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/BountyHacker/assets/Untitled10.png)
