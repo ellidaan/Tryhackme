@@ -4,7 +4,7 @@ liens du CTF : https://tryhackme.com/r/room/easyctf
 
 Commençons d’abord par faire un scan avec nmap, nous pouvons voir le port 80 ouvert donc un site web.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/7519d85a-065b-470e-9c96-70f14244e8bf/249e2049-a063-4a0d-b6b8-99cad79a608f/Untitled.png)
+![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/Simple%20CTF/assets/Untitled.png)
 
 Suite à la découverte d’un site sur le port 80, nous faisons une enum 
 pour voir s'il n'y a pas d’autres pages cachées, page trouvée:  `/simple`
