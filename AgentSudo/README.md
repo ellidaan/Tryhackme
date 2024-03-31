@@ -10,44 +10,31 @@ Pour changer la requête, nous utiliserons Burp Suite afin d’intercepter celle
 
 Voici à quoi ressemble la requête avant le changement :
 
-less
-
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled2.png)
 
 Après le changement :
-
-less
 
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled3.png)
 
 Nous arrivons sur cette page où nous trouvons un nom d’utilisateur : chris
 
-less
-
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled4.png)
 
 Nous lançons une attaque par force brute sur le mot de passe FTP à l’aide de Hydra
-
-less
 
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled5.png)
 
 Nous nous connectons donc au serveur FTP avec le nom d'utilisateur : chris et le mot de passe crystal. Nous pouvons voir trois fichiers que nous allons télécharger sur notre machine locale avec la commande mget (pour télécharger tous les fichiers).
 
-less
-
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled6.png)
 
 Le fichier nous indique que le mot de passe est caché quelque part dans l’une des photos :
-
-less
 
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled7.png)
 
 Nous utilisons exiftool pour examiner les photos données. Dans cutie.png, on remarque un problème :
 
 Attention : Avertissement concernant la lecture des métadonnées. Nous pouvons donc imaginer qu’il y a un problème au niveau des métadonnées.
-
 
 ![Untitled](https://github.com/ellidaan/Tryhackme/blob/main/AgentSudo/assets/Untitled8.png)
 
